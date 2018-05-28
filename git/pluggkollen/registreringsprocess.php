@@ -3,7 +3,6 @@
   <head>
     <title></title>
     <link rel="stylesheet" href="css/main.css" type="text/css" />
-    <script src="js/scripts.js"></script>
   </head>
   <body>
     <?php
@@ -30,7 +29,10 @@
        else if ($conn->query($sql) === TRUE)
             {
               echo "<h1> Tack! Du är nu registrerad. </h1>";
-              echo '<script>closePopup()</script>';
+              echo '<div>
+                                  <form action="login.php">
+                                  <input type="submit" value="Logga in! " id= "redirect" />
+                                  </form></div>';
 
             } else {
               echo "Error: " . $sql . "<br>" . $conn->error;

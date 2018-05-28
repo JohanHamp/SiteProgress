@@ -7,6 +7,7 @@ if(!isset($_SESSION['inlogged']))
 else {
   $username = $_SESSION['username'];
 }
+
 ?>
 
 
@@ -36,97 +37,50 @@ else {
 
   <div class="footer">
 
+  
+
 
     <div class="chatbox">
       <div class="chatlogs">
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
-        <div class="chat receiver">
-          <div class="user-photo"></div>
-          <p class="chat-message">test medasdfsda fdaluihfidsauhf  iuhfdsiau  iufhdisua i ufhdisauh elande</p>
-        </div>
-        <div class="chat sender">
-          <div class="user-photo"></div>
-          <p class="chat-message">tasdfdasdf aisdugfhi aisdfuha ifudshaf iuhdfiuhuf h uiuh aushdfi uhiuha fhdsiufhidsau h</p>
-        </div>
 
+        <?php
+        include 'connect.php';
+
+
+
+        $sql = "SELECT Message, FKsenderId FROM messages WHERE (FKsenderId = '$username') OR (FkreceiverId = '$username')";
+
+        $result = $conn->query($sql);
+
+        if ($result ->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            ?>
+            <div class="chat receiver">
+              <div class="user-photo"><?php echo $row['FKsenderId'] ?></div>
+              <p class="chat-message"><?php echo $row['Message']  ?></p>
+            </div>
+
+            <?php
+          }
+        } else {echo "0 messages";}
+        ?>
+
+        </div>
       </div>
+
+
+
+
+
+
+      <form name="Skicka" method="POST" onsubmit="" action="SendMessageProcess.php">
+        <textarea id="message" name="message" rows="10" cols="40">Skriv ditt meddelande!</textarea>
+        <textarea id="kontakt" name="kontakt" rows="1" cols="25"> skriv kontakt här! </textarea>
+        <input type="submit" value="skicka" id="skicka">
+      </form>
     </div>
 
 
 
-
-    <form name="Skicka" method="POST" onsubmit="" action="SendMessageProcess.php">
-      <textarea id="message" name="message" rows="10" cols="40">Skriv ditt meddelande!</textarea>
-      <textarea id="kontakt" name="kontakt" rows="1" cols="25"> skriv kontakt här! </textarea>
-      <input type="submit" value="skicka" id="skicka">
-    </form>
-  </div>
-
-
-  <div class="kontaktlista">
-    <h2>Kontakt Lista</h2>
-    <ol>
-      <li>beta</li>
-      <li>alfa</li>
-      <li>delta</li>
-    </ol>
-  </div>
-
-
-</body>
-</html>
+  </body>
+  </html>

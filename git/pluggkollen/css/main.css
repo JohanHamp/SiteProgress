@@ -172,10 +172,11 @@ li a:hover {
 }
 
 .chat .user-photo{
-  width: 60px;
-  height: 60px;
-  background: #ccc;
+  width: auto;
+  height: 16px;
+  background: #8ec3eb;
   border-radius: 10px;
+  font-size: 12px;
 }
 
 .chat .chat-message{
@@ -190,9 +191,4 @@ li a:hover {
 
 .receiver .chat-message{
   background: #1adda4;
-}
-
-.sender .chat-message{
-  background: #1ddced;
-  order: -1;
 }

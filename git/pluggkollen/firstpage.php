@@ -25,7 +25,6 @@
       <li><a href="profil.php">Profil</a></li>
       <li><a href="rewards.php">Belöningar</a></li>
       <li><a href="mentorskap.php">Mentorskap</a></li>
-      <li ><a href="logoutprocess.php">Logga ut <i><?php echo $username?></i></a></li>
     </ul>
   </div>
   <div class="middle">
@@ -37,14 +36,14 @@
         </button>
       </form>
         <?php
-        //sök processen 
+        //sök processen
         include 'connect.php';
 
         if (isset($_POST['searchbar'])){
 
           $search = $_POST['searchbar'];
 
-          $searchquery = $conn->query("SELECT namn, universitet FROM kurs k
+          $searchquery = $conn->query("SELECT namn, universitet, epost FROM kurs k
           JOIN anv_kurs ak
           ON k.kurskod = ak.kurskod
           JOIN user u
@@ -57,11 +56,14 @@
               while($row = $searchquery->fetch_assoc())
               {
                 $namn = $row['namn'];
+                $email = $row['epost'];
                 $universitet = $row['universitet'];
 
                 echo "<div class = 'mentor'> $namn </br> Poäng: 5 </br> Universitet: $universitet </br>
-                <form name='mentorknappen' action='meddelande.php' method='POST'>
-                <input type='submit' value='Ta kontakt med $namn' id='mentorknappen'>
+                <form name='mentorknappen' action='SendMessageProcess.php' method='POST'>
+                <input type='submit' name='FkreceiverId' value='Ta kontakt med $namn' id='mentorknappen'>
+                <input type='hidden' name='message' value='$username vill ta kontakt med dig!'>
+                <input type='hidden' name='kontakt' value='$email'>
                 </form>
                 </div>";
               }
